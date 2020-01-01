@@ -1,42 +1,18 @@
 {
-  "name": "express-typescript-boilerplate",
-  "version": "3.2.0",
-  "description": "A delightful way to building a Node.js RESTful API Services with beautiful code written in TypeScript",
+  "name": "event-mgmt",
+  "version": "1.0.0",
+  "description": "Event Management Software",
   "main": "src/app.ts",
   "scripts": {
     "start": "nps",
     "test": "npm start test",
     "build": "npm start build",
-    "presetup": "yarn install",
+    "presetup": "npm install",
     "setup": "npm start config && npm start setup.script"
   },
   "engines": {
     "node": ">=8.0.0"
   },
-  "repository": "git+ssh://git@github.com/w3tec/express-typescript-boilerplate.git",
-  "keywords": [
-    "NodeJS",
-    "TypeScript",
-    "express",
-    "boilerplate",
-    "skeleton",
-    "starter-kit",
-    "w3tec.ch"
-  ],
-  "homepage": "https://github.com/w3tec/express-typescript-boilerplate#readme",
-  "author": "w3tec.ch <info@w3tec.ch>",
-  "contributors": [
-    {
-      "name": "David Weber",
-      "email": "david.weber@w3tec.ch",
-      "url": "https://github.com/dweber019"
-    },
-    {
-      "name": "Gery Hirschfeld",
-      "email": "gery.hirschfeld@w3tec.ch",
-      "url": "https://github.com/hirsch88"
-    }
-  ],
   "dependencies": {
     "bcrypt": "3.0.1",
     "chalk": "^2.4.1",
@@ -56,7 +32,7 @@
     "faker": "^4.1.0",
     "figlet": "^1.2.0",
     "glob": "^7.1.2",
-    "graphql": "14.0.2",
+    "graphql": "^14.0.3",
     "helmet": "^3.9.0",
     "jsonfile": "5.0.0",
     "microframework-w3tec": "^0.6.3",
@@ -77,7 +53,7 @@
     "type-graphql": "^0.15.0",
     "typedi": "0.8.0",
     "typeorm": "^0.2.5",
-    "typeorm-seeding": "^1.0.0-beta.6",
+    "typeorm-seeding": "^1.2.0",
     "typeorm-typedi-extensions": "^0.2.1",
     "typescript": "^3.6.3",
     "uuid": "^3.3.2",
@@ -111,6 +87,7 @@
     "@types/express": "^4.0.39",
     "@types/faker": "^4.1.2",
     "@types/figlet": "^1.2.0",
+    "@types/graphql": "^14.5.0",
     "@types/helmet": "0.0.41",
     "@types/jest": "23.3.2",
     "@types/morgan": "^1.7.35",
@@ -129,8 +106,5 @@
     "nock": "10.0.0",
     "sqlite3": "^4.0.0",
     "ts-jest": "23.10.1"
-  },
-  "resolutions": {
-    "**/event-stream": "^4.0.1"
   }
 }
