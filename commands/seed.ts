@@ -1,8 +1,9 @@
 import chalk from 'chalk';
 import commander from 'commander';
 import * as path from 'path';
+import * as fs from 'fs';
 import {
-    loadConnection, loadEntityFactories, loadSeeds, runSeed, setConnection
+    getConnection, runSeeder, setConnection
 } from 'typeorm-seeding';
 
 // Cli helper
@@ -17,14 +18,10 @@ commander
   .parse(process.argv);
 
 // Get cli parameter for a different factory path
-const factoryPath = (commander.factories)
-  ? commander.factories
-  : 'src/database/factories';
+const factoryPath = path.join(__dirname, '/../src/database/factories/');
 
 // Get cli parameter for a different seeds path
-const seedsPath = (commander.seeds)
-  ? commander.seeds
-  : 'src/database/seeds/';
+const seedsPath = path.join(__dirname, '/../src/database/seeds/');
 
 // Get a list of seeds
 const listOfSeeds = (commander.run)
@@ -35,11 +32,39 @@ const listOfSeeds = (commander.run)
 const run = async () => {
   const log = console.log;
 
-  let factoryFiles;
-  let seedFiles;
+  const factoryFiles = [];
+  const seedFiles = [];
   try {
-    factoryFiles = await loadEntityFactories(factoryPath);
-    seedFiles = await loadSeeds(seedsPath);
+      console.log("in try block")
+      console.log(factoryPath)
+    await fs.readdir(factoryPath, (err: any, files: any) => {
+        // handling error
+        console.log("Reached factory files")
+        if (err) {
+            return console.log('Unable to scan directory: ' + err);
+        }
+        // listing all files using forEach
+        console.log(files);
+        files.forEach((file) => {
+            // Do whatever you want to do with the file
+            factoryFiles.push(file);
+            console.log(file)
+        });
+    });
+      console.log(factoryFiles)
+    fs.readdir(seedsPath, (err: any, files: any) => {
+        // handling error
+        console.log("Reached seeds files")
+        if (err) {
+            return console.log('Unable to scan directory: ' + err);
+        }
+        // listing all files using forEach
+        files.forEach((file) => {
+            // Do whatever you want to do with the file
+            seedFiles.push(file);
+        });
+    });
+      console.log(seedFiles)
   } catch (error) {
     return handleError(error);
   }
@@ -56,7 +81,8 @@ const run = async () => {
 
   // Get database connection and pass it to the seeder
   try {
-    const connection = await loadConnection();
+      console.log("reached conn")
+    const connection = await getConnection();
     setConnection(connection);
   } catch (error) {
     return handleError(error);
@@ -70,7 +96,7 @@ const run = async () => {
       className = className.split('-')[className.split('-').length - 1];
       log('\n' + chalk.gray.underline(`executing seed:  `), chalk.green.bold(`${className}`));
       const seedFileObject: any = require(seedFile);
-      await runSeed(seedFileObject[className]);
+      await runSeeder(seedFileObject[className]);
     } catch (error) {
       console.error('Could not run seed ', error);
       process.exit(1);

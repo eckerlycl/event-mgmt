@@ -1,0 +1,27 @@
+{
+    "name": "default",
+    "type": "postgres",
+    "host": "postgres",
+    "port": 5432,
+    "username": "events_admin",
+    "password": "K38]*R_y?rgW}P#J",
+    "database": "events",
+    "synchronize": true,
+    "logging": false,
+    "entities": [
+        "src/api/models/*.js"
+    ],
+    "subscribers": [
+        "src/api/subscribers/subscriber/*.js"
+    ],
+    "migrations": [
+        "src/database/migrations/*.js"
+    ],
+    "cli": {
+        "entitiesDir": "src/entity",
+        "migrationsDir": "src/migration",
+        "subscribersDir": "src/subscriber"
+    },
+    "seeds": ["src/database/seeds/**/*.ts"],
+    "factories": ["src/database/factories/**/*.ts"],
+}
